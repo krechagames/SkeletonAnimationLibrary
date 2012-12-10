@@ -5,6 +5,7 @@ package dragonBones.objects
 	import dragonBones.utils.TransfromUtils;
 	import dragonBones.utils.dragonBones_internal;
 	import dragonBones.utils.BytesType;
+	import starling.textures.TextureAtlas;
 	
 	import flash.utils.ByteArray;
 	import flash.display.Loader;
@@ -14,6 +15,9 @@ package dragonBones.objects
 	use namespace dragonBones_internal;
 	
 	/** @private */
+	/**
+	 * Changed by KrechaGames - Łuaksz Cywiński - add parseStarlingTextureAtlasData
+	 */
 	public class XMLDataParser
 	{
 		private static var helpNode:Node = new Node();
@@ -405,6 +409,28 @@ package dragonBones.objects
 					throw new UnknownDataError();
 					break;
 			}
+			return textureAtlasData;
+		}
+		
+		/**
+		 * Cywil: Returne TextureAtalsData based on Starling.TexureAtlas
+		 * @param	textureAtlasXML
+		 * @param	texutreAtlas
+		 * @return
+		 */
+		public static function parseStarlingTextureAtlasData ( textureAtlasXML:XML, texutreAtlas:TextureAtlas ):TextureAtlasData
+		{
+			var textureAtlasData:TextureAtlasData = new TextureAtlasData();
+			textureAtlasData._name = textureAtlasXML.attribute(ConstValues.A_NAME);
+			textureAtlasData._width = int(textureAtlasXML.attribute(ConstValues.A_WIDTH));
+			textureAtlasData._height = int(textureAtlasXML.attribute(ConstValues.A_HEIGHT));
+			textureAtlasData._starlingTexture = texutreAtlas;
+			
+			for each(var subTextureXML:XML in textureAtlasXML.elements(ConstValues.SUB_TEXTURE))
+			{
+				var subTextureData:SubTextureData = parseSubTextureData(subTextureXML);
+				textureAtlasData.addSubTextureData(subTextureData);
+			}						
 			return textureAtlasData;
 		}
 		
