@@ -2,17 +2,27 @@ SkeletonAnimationLibrary
 ======================
 http://dragonbones.github.com/  
 
-In this project you can find the source code of DragonBones' skeleton animation library, which is a framework support rendering characters with skeleton animation by parsing assets exported from [SkeletonAnimationDesignPanel](https://github.com/DragonBones/SkeletonAnimationDesignPanel).
+----------------------
+Changelog (forked by KrechaGames): <br>
+dragonBones / factorys / StarlingFactory.as <br>
+dragonBones / objects / XMLDataParser.as
 
-Following steps show you how to use the source code:  
-1. Make sure you have got starling.swc v1.2 or later version.  
-2. Make sure you have installed some Flash IDE such as Flash Builder.  
-3. Create a ActionScript Library project and include the source code.  
-4. Import starling.swc into the project.  
-5. Build project and have fun.  
+Now StarlingFactory can use TextureAtlas objects created by Starling and support contentScaleFactor.
 
-There are some demos in [SkeletonAnimationDemos](https://github.com/DragonBones/SkeletonAnimationDemos) project shows how to use the library  
+Usage:
 
-**All things you need to download can be found [here](http://dragonbones.github.com/download.html)**  
+factory = new StarlingFactory ();<br>
+factory.addEventListener(flash.events.Event.COMPLETE, bonesCompleteHandler);<br>
+factory.skeletonData = XMLDataParser.parseSkeletonData ( skeletonData );<br>
+factory.textureAtlasData = XMLDataParser.parseStarlingTextureAtlasData ( textureData, textureAtlas );
 
+//skeletonData - xml skeleton data created by SkeletonAnimationDesignPanel;<br>
+//textureData - xml texture data created by SkeletonAnimationDesignPanel - (unfortunately) we need it only to create TextureAtalsData with the pivot points;<br>
+//textureAtlas - Starling.TextureAtlas;<br>
+
+We can also use it like in this sample (but with contentScaleFactor support - only 1 or 2 values, otherwise generateArmature() must be edit in place where textures are create):<br>
+[Example_Cyborg_XMLAndPNG.as](https://github.com/DragonBones/SkeletonAnimationDemos/blob/master/SkeletonAnimationLibraryDemos/src/Example_Cyborg_XMLAndPNG.as)
+
+----------------------
 Copyright 2012 the DragonBones Team
+

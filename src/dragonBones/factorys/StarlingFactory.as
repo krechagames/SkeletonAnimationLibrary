@@ -32,15 +32,16 @@ package dragonBones.factorys
 		{
 			var subTextureData:SubTextureData = textureAtlasData.getSubTextureData (fullName);			
 			var scaleFactor:Number = Starling.contentScaleFactor;
-			if ( scaleFactor != 1 ){
+		
+			if ( scaleFactor != 1 && !(textureAtlasData._starlingTexture is TextureAtlas)){
 				var tempSubTextureData:SubTextureData = new SubTextureData ();
 				tempSubTextureData.x = subTextureData.x / scaleFactor;
 				tempSubTextureData.y = subTextureData.y / scaleFactor;
 				tempSubTextureData.width = subTextureData.width / scaleFactor;
 				tempSubTextureData.height = subTextureData.height / scaleFactor;
-				tempSubTextureData.pivotX = subTextureData.pivotX / scaleFactor;
-				tempSubTextureData.pivotY = subTextureData.pivotY / scaleFactor;
-				subTextureData = tempSubTextureData;
+				tempSubTextureData.pivotX = subTextureData.pivotX;
+				tempSubTextureData.pivotY = subTextureData.pivotY;
+				subTextureData = tempSubTextureData;			
 			}
 			
 			if (subTextureData)
